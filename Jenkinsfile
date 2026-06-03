@@ -19,7 +19,11 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f deploymentsvc.yaml'
+                sh '''
+                echo $KUBECONFIG
+                kubectl get nodes
+                kubectl apply -f deploymentsvc.yaml
+                '''
             }
         }
     }
