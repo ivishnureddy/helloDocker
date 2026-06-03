@@ -23,6 +23,9 @@ pipeline {
                 echo $KUBECONFIG
                 pwd
                 ls -la
+
+                sleep 10
+                
                 kubectl get nodes
                 kubectl apply -f $WORKSPACE/deploymentsvc.yaml
                 '''
