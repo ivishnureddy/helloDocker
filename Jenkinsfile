@@ -21,8 +21,10 @@ pipeline {
             steps {
                 sh '''
                 echo $KUBECONFIG
+                pwd
+                ls -la
                 kubectl get nodes
-                kubectl apply -f deploymentsvc.yaml
+                kubectl apply -f $WORKSPACE/deploymentsvc.yaml
                 '''
             }
         }
