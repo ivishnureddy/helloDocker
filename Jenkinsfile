@@ -13,7 +13,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t hellodocker .'
+                sh 'docker build --network host -t hellodocker .'
             }
         }
 
