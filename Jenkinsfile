@@ -1,35 +1,28 @@
 pipeline {
     agent any
 
-    environment{
-        KUBECONFIG = "/var/jenkins_home/kubeconfig"
-    }
     stages {
-        stage('Clone') {
-            steps {
-                echo 'Repository already checked out by jenkins SCM' 
-            }
-        }
 
-        stage('Build Docker Image') {
+        stage('Clone Repository') {
             steps {
-                sh 'docker build --network host -t hellodocker .'
+                git branch: 'main',
+                url:
+                    'https://github.com/ivishnureddy/helloDocker.git'
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh '''
-                echo $KUBECONFIG
-                pwd
-                ls -la
-
-                sleep 10
-                
-                kubectl get nodes
-                kubectl apply -f $WORKSPACE/deploymentsvc.yaml
-                '''
+                sh 'kubectl apply -f deploymentsvc.yaml'
             }
         }
+
+        stage('Verify Deployment') {
+            steps {
+                sh 'kubectl get pods'
+                sh 'kubectl get services'
+            }
+        }
+
     }
 }
