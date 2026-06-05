@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hellodocker-deployment
-        image: hellodocker:latest
+        image: ivishnureddy/hellodocker:v2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
